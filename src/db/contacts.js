@@ -16,7 +16,7 @@ const createContact = (contact) =>
     .catch(error => error)
 
 const getContacts = function(){
-  db.query(`
+  return db.query(`
     SELECT
       *
     FROM
