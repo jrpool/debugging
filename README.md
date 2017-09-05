@@ -1,14 +1,16 @@
-# Contacts Snapshot starter project
+# Exercise in the debugging of an existing broken application.
 
-## Dev Setup
+## Contacts Snapshot starter project
 
-1. Create your database: `createdb contacts_development`
+### Dev Setup
+
+1. Create your database: `createdb contacts_debugging`
 1. Load your database with the schema: `npm run load_schema`
 1. Install your dependencies: `npm install`
 1. Run the server: `nodemon`
 
 
-## Features which are broken, and need to be fixed
+### Features which are broken, and need to be fixed
 
 - Going to the Home Page (`http://localhost:3000/`) should let you see  all the contacts
 - Going to a contact detail page should show the full name of the contact
