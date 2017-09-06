@@ -1,7 +1,7 @@
 const db = require('./db')
 
-const createContact = contact => {
-  return db.one(`
+const createContact = contact =>
+  db.one(`
     INSERT INTO
       contacts (first_name, last_name)
     VALUES
@@ -10,23 +10,22 @@ const createContact = contact => {
       *
     `,
     [
-      contact.f_name,
-      contact.l_name,
+      contact.first_name,
+      contact.last_name,
     ]
   )
-  .catch(error => error)
-}
+  .catch(error => error);
 
-const getContacts = function(){
-  return db.query(`
+const getContacts = () =>
+  db.any(`
     SELECT
       *
     FROM
       contacts
-    `, [])
-}
+    `, []);
 
-const getContact = (contactId) =>
+
+const getContact = contactId =>
   db.one(`
     SELECT id, first_name, last_name FROM contacts WHERE id=$1::int LIMIT 1
     `,
@@ -34,14 +33,16 @@ const getContact = (contactId) =>
     .catch(error => error);
 
 
-const deleteContact = (contactId) =>
-  db.query(`
+
+const deleteContact = contactId =>
+  db.none(`
     DELETE FROM
       contacts
     WHERE
       id=$1::int
-    `)
-    .catch(error => error)
+    `,
+    [contactId])
+    .catch(error => error);
 
 const searchForContact = function(searchQuery){
   return db.query(`
