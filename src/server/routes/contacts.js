@@ -7,13 +7,16 @@ router.get('/new', (request, response) => {
   response.render('new')
 })
 
-router.post('/', (request, response, next) => {
+router.post('/new', (request, response, next) => {
+  console.log('Request body keys are ' + Object.keys(request.body).join(', '));
   DbContacts.createContact(request.body)
-    .then(function(contact) {
-      if (contact) return response.redirect(`/contacts/${contact.id}`)
-      next()
-    })
-    .catch( error => renderError(error, response, response) )
+  .then(contact => {
+    console.log('Type of contact is ' + typeof contact);
+    console.log('Its keys are ' + Object.keys(contact).join(', '));
+    if (contact) return response.redirect(`/contacts/${contact.id}`)
+    next()
+  })
+  .catch( error => renderError(error, response, response) )
 })
 
 router.get('/:contactId', (request, response, next) => {
