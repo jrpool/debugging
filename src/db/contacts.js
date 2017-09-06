@@ -44,8 +44,8 @@ const deleteContact = contactId =>
     [contactId])
     .catch(error => error);
 
-const searchForContact = function(searchQuery){
-  return db.query(`
+const searchForContact = searchQuery => {
+  return db.any(`
     SELECT
       *
     FROM

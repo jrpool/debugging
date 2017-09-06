@@ -1,0 +1,16 @@
+<%- include header.ejs %>
+
+  <h1>Matching Contacts</h1>
+
+  <div class="contact-list">
+    <% matchingContacts.forEach(function(matchingContact){ %>
+      <div class="contact-list-member">
+        <a class="contact-link" href="/contacts/<%= matchingContact.id %>">
+          <%= matchingContact.first_name %>&nbsp;<%= matchingContact.last_name %>
+        </a>
+        <a class="delete-contact" href="/contacts/<%= matchingContact.id %>/delete" tabindex="-1">X</a>
+      </div>
+    <% }) %>
+  </div>
+
+<%- include footer.ejs %>

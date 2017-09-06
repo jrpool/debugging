@@ -27,8 +27,10 @@ router.get('/:contactId', (request, response, next) => {
   if (!contactId || !/^\d+$/.test(contactId)) return next()
   DbContacts.getContact(contactId)
   .then(function(contact) {
-    if (contact) return response.render('show', {contact})
-    next()
+    if (contact) {
+      return response.render('show', {contact});
+    }
+    next();
   })
   .catch( error => renderError(error, response, response) )
 })
@@ -43,13 +45,15 @@ router.get('/:contactId/delete', (request, response, next) => {
 })
 
 router.get('/search', (request, response, next) => {
-  const query = request.query.q
+  const query = request.query.query;
   DbContacts.searchForContact(query)
-    .then(function(contacts) {
-      if (contacts) return response.render('index', { query, contacts })
-      next()
-    })
-    .catch( error => renderError(error, response, response) )
+  .then(matchingContacts => {
+    if (matchingContacts) {
+      return response.render('matches', {query, matchingContacts});
+    }
+    next();
+  })
+  .catch( error => renderError(error, response, response) )
 })
 
 module.exports = router
